@@ -45,11 +45,12 @@ MPTopMPFollowersTable25 <- gt(data = MPsSummary1Top25MPFollowers) %>%
               table.margin.right = pct(3)) %>% 
   tab_style(style = list(cell_text(font = "Open Sans", weight = "bold")),locations = list(cells_title(groups = "title"))) %>% 
   tab_style(style = list(cell_text(font = "Open Sans", weight = "bold")),locations = list(cells_column_labels(gt::everything()))) 
+
 # view table
 MPTopMPFollowersTable25
+
 # export table
 gtsave(MPTopMPFollowersTable25, filename = "MPTopFollowersTable25.png", expand = 30) 
-
 
 # summary by party - median and IQR due to distribution being non-normal.
 PartySummarybyFollowersMed <- MPsSummary1 %>% 
@@ -144,7 +145,7 @@ ggsave(MPFollowersPointGraphFacet, filename = "MPFollowersPointGraphFacet3.png",
 
 # insularity of parties -------------------------------
 
-# import edge list data (data of the individual relations between mps and other twitter users)
+# import edge list data (data of the individual relations between mps)
 MPsEdges <- read.csv("MPfollowingUSERSOnlyMPS.csv",header = T, sep = ",", strip.white = T)
 MPsEdges <- as_tibble(MPsEdges)
 # selection only source and target variables
@@ -152,7 +153,6 @@ MPsEdges2 <- MPsEdges %>%
   select(Source, Target)
 
 #need to join by party of both source and target to find most insular MPs and their party relations.
-
 # get sourceIDs and TargetIDs
 SourceIDs <- MPsSummary1 %>% 
   select(id, Name, Party) %>% 
